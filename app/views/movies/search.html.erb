@@ -1,0 +1,37 @@
+<div class="row">
+	<div class="col-md-6 col-md-offset-3">
+  	
+  	<h1> Rechercher un film ! </h1>
+
+  	<div class="form_tag">
+	<%= form_tag({controller: "movies", action: "search"}, method: "get") do %>
+		<%= label_tag(:movie_title, "Enter movie title to search") %>
+		<%= text_field_tag :movie_title %><br /><br />
+		<%= submit_tag 'Search', class:"btn btn-primary" %>
+	<% end %>
+	</div>
+
+	<% if @movies %>
+		<h1> Résultat de la recherche </h1>
+		<table>
+			<tr>
+				<th>Nom du film</th>
+				<th>Date de sortie</th>
+				<th>Affiche</th>
+			</tr>
+			<% @movies.each do |m| %>
+			<tr>
+				<td><%= m['title'] %></td>
+				<td><%= m['release_date'] %></td>
+				<td><%= image_tag 'http://image.tmdb.org/t/p/w92'+m['poster_path'] %></td>
+			</tr>
+			<% end %>
+		</table>
+	<% elsif @movies.nil? %>
+
+	<% else @movies.size == nil %>
+		<h2> Can't find a movie for this title  </h2>
+	<% end %>
+	</div>
+
+</div>
